@@ -1,0 +1,29 @@
+#!/bin/bash
+# S99ppu Init Script
+
+# To Set
+OS=`uname -s`
+PPUHOME=/opt/ppu
+PPULOG=$PPUHOME/logs
+LOCKFILE=`ls -1 $PPULOG/*.run`
+
+# Check OS
+if [ $OS = "SunOS" ]
+then
+	DELETE="/usr/bin/rm -f"
+else
+	if [ $OS = "Linux" ]
+	then
+		DELETE="/bin/rm -f"
+	else
+		echo "Only SUN or Linux supported"
+		exit
+	fi		
+fi
+
+# Check LockFile
+if [ -f $LOCKFILE ]
+then
+        $DELETE $LOCKFILE
+fi
+
